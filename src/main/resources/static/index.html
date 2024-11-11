@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Karyawan</title>
+
+  <!-- css -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/flatpickr.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="bg-primary text-white d-flex justify-content-center">
+    <h1>Data Karyawan</h1>
+  </header>
+
+  <main>
+    <div class="container mt-5 pt-3 bg-cream rounded-2">
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="nikSearch" class="form-label">NIK</label>
+            <input type="text" class="form-control" id="nikSearch" placeholder="3511xxxxxxxxxxxx">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="namaLengkapSearch" class="form-label">Nama</label>
+            <input type="text" class="form-control" id="namaLengkapSearch" placeholder="Nama Lengkap">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container d-flex justify-content-between mt-3">
+      <div class="w-auto">
+        <div class="alert alert-success visually-hidden" role="alert"></div>
+        <div class="alert alert-danger visually-hidden" role="alert"></div>
+      </div>
+      <div>
+        <button type="button" class="btn btn-primary mx-3" id="btnSearch">Search</button>
+        <button type="button" class="btn btn-primary" id="btnAdd" data-bs-toggle="modal" data-bs-target="#formModal">
+          Add
+        </button>
+      </div>
+    </div>
+
+    <div class="container mt-1">
+      <table class="table table-bordered table-hover">
+        <thead class="text-center">
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">NIK</th>
+          <th scope="col">Nama Lengkap</th>
+          <th scope="col">Umur</th>
+          <th scope="col">Tanggal Lahir</th>
+          <th scope="col">Jenis Kelamin</th>
+          <th scope="col">Alamat</th>
+          <th scope="col">Negara</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        </tbody>
+      </table>
+
+      <!-- Modal Form -->
+      <div class="modal fade" id="formModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="form">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="nik" name="nik" placeholder="3511xxxxxxxxxxxx">
+                  <label for="nik">NIK</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="namaLengkap" name="namaLengkap" placeholder="Nama Lengkap">
+                  <label for="namaLengkap">Nama Lengkap</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="jenisKelamin" id="laki-laki" value="Laki-Laki">
+                  <label class="form-check-label" for="laki-laki">
+                    Laki-Laki
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="jenisKelamin" id="perempuan" value="Perempuan">
+                  <label class="form-check-label" for="perempuan">
+                    Perempuan
+                  </label>
+                </div>
+                <div class="mt-3">
+                  <label for="tanggalLahir" class="d-block">Tanggal Lahir</label>
+                  <input type="text" class="form-control" id="tanggalLahir" name="tanggalLahir" placeholder="Select date...">
+                </div>
+                <div class="form-floating mt-3">
+                  <textarea class="form-control" placeholder="Alamat" id="alamat" style="height: 100px"></textarea>
+                  <label for="alamat">Alamat</label>
+                </div>
+                <div class="form-floating mt-3">
+                  <select class="form-select" id="negara" aria-label="Floating label select example">
+                    <option selected>Pilih Negara</option>
+                    <option value="Indonesia">Indonesia</option>
+                    <option value="Indonesia">Singapura</option>
+                    <option value="Indonesia">Malaysia</option>
+                  </select>
+                  <label for="negara">Negara</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="btnSave"></button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Detail -->
+      <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="detailModalLabel">Detail Data</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="border-bottom pb-3">NIK: <span id="nikDetail"></span></div>
+              <div class="border-bottom pt-3 pb-3">Nama Lengkap: <span id="namaLengkapDetail"></span></div>
+              <div class="border-bottom pt-3 pb-3">Jenis Kelamin: <span id="jenisKelaminDetail"></span></div>
+              <div class="border-bottom pt-3 pb-3">Tanggal Lahir: <span id="tanggalLahirDetail"></span></div>
+              <div class="border-bottom pt-3 pb-3">Alamat: <span id="alamatDetail"></span></div>
+              <div class="pt-3">Negara: <span id="negaraDetail"></span></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Delete Confirm -->
+      <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="deleteModalLabel">Hapus Data</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Apakah anda yakin ingin menghapus data ini?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger" id="modalBtnDelete">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/jquery-3.7.1.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/flatpickr.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
